@@ -12,8 +12,9 @@ class MainActivity : AppCompatActivity() {
 	private val RANGE = (1..9)
 	//예측한 숫자
 	lateinit var input:EditText
-	var predictingNumber = 0
 	lateinit var checkButton: Button
+	// 정답 리스트
+	private var answer:MutableList<Int> = makeNumber()
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
@@ -25,20 +26,19 @@ class MainActivity : AppCompatActivity() {
 				Toast.makeText(this, "숫자를 입력해주세요", Toast.LENGTH_SHORT).show()
 				return@setOnClickListener
 			}
-			predictingNumber = input.text.toString().toInt()
+			var number = input.text.toString().toInt()
 			//숫자 유효성 검사
-			if (checkPredictingNumber(predictingNumber)){
+			if (checkPredictingNumber(number)){
 
 			}
 		}
 
 	}
-	//숫자 생성
-	fun makeNumber():Int{
+	// 중복되지 않은 숫자 생성
+	fun makeNumber():MutableList<Int>{
 		var first:Int
 		var second:Int
 		var third:Int
-
 		first = RANGE.random()
 		do {
 			second = RANGE.random()
@@ -46,13 +46,7 @@ class MainActivity : AppCompatActivity() {
 		do {
 			third = RANGE.random()
 		} while (first == third || second == third)
-		return first * 100 + second * 10 + third
-	}
-
-	fun run(){
-		while (true){
-
-		}
+		return mutableListOf<Int>(first, second, third)
 	}
 	//예측한 숫자가 유효한지 확인
 	fun checkPredictingNumber(predictingNumber:Int):Boolean{
@@ -61,6 +55,17 @@ class MainActivity : AppCompatActivity() {
 			return false
 		}
 		return true
+	}
+
+	fun judgeBallAndStrike(predictingNumber:Int):MutableList<Int>{
+		var ball = 0
+		var strike = 0
+		var number = predictingNumber
+		// 정답의 각 자리
+		var first = answer / 100
+		var second = answer % 100 / 10
+		var third = answer % 10
+
 	}
 
 }
