@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -15,11 +16,17 @@ class MainActivity : AppCompatActivity() {
 	lateinit var checkButton: Button
 	// 정답 리스트
 	private var answer:MutableList<Int> = makeNumber()
+	// 볼 텍스트뷰
+	lateinit var ball: TextView
+	// 스트라이크 텍스트뷰
+	lateinit var strike: TextView
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 		input = findViewById(R.id.input)
 		checkButton = findViewById(R.id.check)
+		ball = findViewById(R.id.ball)
+		strike = findViewById(R.id.strike)
 		checkButton.setOnClickListener {
 			//숫자를 입력하지 않았을 때
 			if (input.text.toString().isEmpty()){
