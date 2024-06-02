@@ -13,6 +13,82 @@
         android:layout_height="100dp"
         android:text="숫자를 입력하세요"
         android:textSize="50dp"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:background="@color/Ivory"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:inputType="number"
+        android:id="@+id/input"
+        android:hint="중복되지 않는 세자리 숫자를 입력하세요"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="결과"
+        android:textSize="50dp"
+        android:gravity="center"
+        android:background="@color/Ivory"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/strike"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="0"
+            android:textSize="30dp"
+            android:gravity="right|center"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="스트라이크"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:layout_weight="0.7"/>
+        <TextView
+            android:id="@+id/ball"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="0"
+            android:textSize="30dp"
+            android:gravity="right|center"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="볼"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="최소 삼진 시도 횟수"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:layout_weight="0.5"
+            android:background="@color/Ivory"/>
+        <TextView
+            android:id="@+id/min_count"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="0"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ground"
+        android:scaleType="centerCrop"/>
+
 
 </LinearLayout>
