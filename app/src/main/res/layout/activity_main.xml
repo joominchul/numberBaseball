@@ -47,7 +47,7 @@
         android:id="@+id/result"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:text=""
+        android:text="게임 시작"
         android:textSize="30dp"
         android:gravity="center"/>
     <LinearLayout
