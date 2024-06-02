@@ -56,16 +56,28 @@ class MainActivity : AppCompatActivity() {
 		}
 		return true
 	}
-
+	// 정답과 예측한 숫자를 비교
 	fun judgeBallAndStrike(predictingNumber:Int):MutableList<Int>{
 		var ball = 0
 		var strike = 0
-		var number = predictingNumber
 		// 정답의 각 자리
-		var first = answer / 100
-		var second = answer % 100 / 10
-		var third = answer % 10
-
+		var answerFirst = answer[0]
+		var answerSecond = answer[1]
+		var answerThird = answer[2]
+		// 예측한 숫자의 각 자리
+		var inputFirst = predictingNumber/100
+		var inputSecond = predictingNumber/10%10
+		var inputThird = predictingNumber%10
+		// 첫번째 자리 숫자 비교
+		if (answerFirst == inputFirst) strike++
+		else if (answer.contains(inputFirst)) ball++
+		// 두번째 자리 숫자 비교
+		if (answerSecond == inputSecond) strike++
+		else if (answer.contains(inputSecond)) ball++
+		// 세번째 자리 숫자 비교
+		if (answerThird == inputThird) strike++
+		else if (answer.contains(inputThird)) ball++
+		return mutableListOf<Int>(ball, strike)
 	}
 
 }
