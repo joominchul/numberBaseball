@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 class MainActivity : AppCompatActivity() {
 	//숫자 범위
 	private val RANGE = (1..9)
+	//최대 횟수
+	private val MAX_COUNT = 10
 	//예측한 숫자
 	lateinit var input:EditText
 	lateinit var checkButton: Button
@@ -18,6 +20,10 @@ class MainActivity : AppCompatActivity() {
 	private var answer:MutableList<Int> = makeNumber()
 	// 결과 텍스트뷰
 	lateinit var resultView: TextView
+	// 최소 삼진 시도 횟수
+	private var minCount = MAX_COUNT
+	// 현재 시도 횟수
+	private var nowCount = 0
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
@@ -34,6 +40,13 @@ class MainActivity : AppCompatActivity() {
 			//숫자 유효성 검사
 			if (checkPredictingNumber(number)){
 				showResult(judgeBallAndStrike(number))
+				nowCount++
+				if (nowCount == MAX_COUNT){
+					resultView.text = "최대 횟수(9번) 초과! 게임 종료"
+					answer = makeNumber()
+					nowCount = 0
+					input.setText("") //입력창 초기화
+				}
 			}
 		}
 
@@ -92,12 +105,18 @@ class MainActivity : AppCompatActivity() {
 			resultView.text = "${strike} 스트라이크"
 			if (strike == 3) {
 				Toast.makeText(this, "3개의 숫자를 모두 맞히셨습니다! 게임 종료", Toast.LENGTH_SHORT).show()
-				answer = makeNumber()
 				resultView.text = "게임 재시작"
+				gameRestart()
 			}
 		}
 		else if (strike == 0) resultView.text = "${ball} 볼"
 		else resultView.text = "${ball} 볼 ${strike} 스트라이크"
+	}
+	// 게임 재시작
+	fun gameRestart(){
+		answer = makeNumber()
+		nowCount = 0
+		input.setText("") //입력창 초기화
 	}
 
 }
