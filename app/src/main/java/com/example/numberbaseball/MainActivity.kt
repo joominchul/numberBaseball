@@ -16,17 +16,14 @@ class MainActivity : AppCompatActivity() {
 	lateinit var checkButton: Button
 	// 정답 리스트
 	private var answer:MutableList<Int> = makeNumber()
-	// 볼 텍스트뷰
-	lateinit var ball: TextView
-	// 스트라이크 텍스트뷰
-	lateinit var strike: TextView
+	// 결과 텍스트뷰
+	lateinit var resultView: TextView
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 		input = findViewById(R.id.input)
 		checkButton = findViewById(R.id.check)
-		ball = findViewById(R.id.ball)
-		strike = findViewById(R.id.strike)
+		resultView = findViewById(R.id.result)
 		checkButton.setOnClickListener {
 			//숫자를 입력하지 않았을 때
 			if (input.text.toString().isEmpty()){
@@ -36,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 			var number = input.text.toString().toInt()
 			//숫자 유효성 검사
 			if (checkPredictingNumber(number)){
-
+				showResult(judgeBallAndStrike(number))
 			}
 		}
 
@@ -85,6 +82,22 @@ class MainActivity : AppCompatActivity() {
 		if (answerThird == inputThird) strike++
 		else if (answer.contains(inputThird)) ball++
 		return mutableListOf<Int>(ball, strike)
+	}
+	// 결과 출력
+	fun showResult(result:MutableList<Int>){
+		var ball = result[0]
+		var strike = result[1]
+		if (ball + strike == 0) resultView.text = "아웃"
+		else if (ball == 0){
+			resultView.text = "${strike} 스트라이크"
+			if (strike == 3) {
+				Toast.makeText(this, "3개의 숫자를 모두 맞히셨습니다! 게임 종료", Toast.LENGTH_SHORT).show()
+				answer = makeNumber()
+				resultView.text = "게임 재시작"
+			}
+		}
+		else if (strike == 0) resultView.text = "${ball} 볼"
+		else resultView.text = "${ball} 볼 ${strike} 스트라이크"
 	}
 
 }
