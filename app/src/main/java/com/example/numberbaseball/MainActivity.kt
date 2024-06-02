@@ -11,15 +11,25 @@ class MainActivity : AppCompatActivity() {
 	//숫자 범위
 	private val RANGE = (1..9)
 	//예측한 숫자
-	lateinit var predictingNumber:EditText
+	lateinit var input:EditText
+	var predictingNumber = 0
 	lateinit var checkButton: Button
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
-		predictingNumber = findViewById(R.id.input)
+		input = findViewById(R.id.input)
 		checkButton = findViewById(R.id.check)
 		checkButton.setOnClickListener {
-			Log.d("checkButton", predictingNumber.text.toString().toInt().toString())
+			//숫자를 입력하지 않았을 때
+			if (input.text.toString().isEmpty()){
+				Toast.makeText(this, "숫자를 입력해주세요", Toast.LENGTH_SHORT).show()
+				return@setOnClickListener
+			}
+			predictingNumber = input.text.toString().toInt()
+			//숫자 유효성 검사
+			if (checkPredictingNumber(predictingNumber)){
+
+			}
 		}
 
 	}
@@ -41,19 +51,16 @@ class MainActivity : AppCompatActivity() {
 
 	fun run(){
 		while (true){
-			var predictingNumber = checkPredictingNumber(predictingNumber)
+
 		}
 	}
 	//예측한 숫자가 유효한지 확인
-	fun checkPredictingNumber(predictingNumber:EditText):Boolean{
-		var predictingNumber = predictingNumber.text.toString().toInt()
+	fun checkPredictingNumber(predictingNumber:Int):Boolean{
 		if (predictingNumber>999 || predictingNumber<100){
 			Toast.makeText(this, "숫자를 3자리로 입력해주세요", Toast.LENGTH_SHORT).show()
 			return false
 		}
 		return true
-
-
 	}
 
 }
