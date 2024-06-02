@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
 	lateinit var resultView: TextView
 	// 최소 삼진 시도 횟수
 	private var minCount = MAX_COUNT
+	// 최소 삼진 시도 횟수 텍스트뷰
+	lateinit var minCountView:TextView
 	// 현재 시도 횟수
 	private var nowCount = 0
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 		input = findViewById(R.id.input)
 		checkButton = findViewById(R.id.check)
 		resultView = findViewById(R.id.result)
+		minCountView = findViewById(R.id.min_count)
 		checkButton.setOnClickListener {
 			//숫자를 입력하지 않았을 때
 			if (input.text.toString().isEmpty()){
@@ -41,11 +44,10 @@ class MainActivity : AppCompatActivity() {
 			if (checkPredictingNumber(number)){
 				showResult(judgeBallAndStrike(number))
 				nowCount++
-				if (nowCount == MAX_COUNT){
+				if (nowCount == MAX_COUNT){ //최대 횟수 초과
 					resultView.text = "최대 횟수(9번) 초과! 게임 종료"
-					answer = makeNumber()
-					nowCount = 0
-					input.setText("") //입력창 초기화
+					Toast.makeText(this, "정답은 ${answer[0]}${answer[1]}${answer[2]}", Toast.LENGTH_SHORT).show()
+					gameRestart()
 				}
 			}
 		}
@@ -115,6 +117,8 @@ class MainActivity : AppCompatActivity() {
 	// 게임 재시작
 	fun gameRestart(){
 		answer = makeNumber()
+		if (minCount > nowCount) minCount = nowCount
+		minCountView.text = "${minCount}"
 		nowCount = 0
 		input.setText("") //입력창 초기화
 	}
