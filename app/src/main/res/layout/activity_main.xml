@@ -90,7 +90,7 @@
             android:text="게임 기록 내용"
             android:textSize="30dp"
             android:textColor="@color/black"
-            android:gravity="center|top"/>
+            android:gravity="left|top"/>
     </ScrollView>
 
 
