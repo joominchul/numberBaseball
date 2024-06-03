@@ -26,6 +26,10 @@ class MainActivity : AppCompatActivity() {
 	lateinit var minCountView:TextView
 	// 현재 시도 횟수
 	private var nowCount = 0
+	// 시도 기록
+	private var history:String = ""
+	// 시도 기록 텍스트뷰
+	lateinit var historyView:TextView
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
@@ -33,6 +37,7 @@ class MainActivity : AppCompatActivity() {
 		checkButton = findViewById(R.id.check)
 		resultView = findViewById(R.id.result)
 		minCountView = findViewById(R.id.min_count)
+		historyView = findViewById(R.id.history)
 		checkButton.setOnClickListener {
 			//숫자를 입력하지 않았을 때
 			if (input.text.toString().isEmpty()){
@@ -42,12 +47,13 @@ class MainActivity : AppCompatActivity() {
 			var number = input.text.toString().toInt()
 			//숫자 유효성 검사
 			if (checkPredictingNumber(number)){
+				history += "${number} : " //시도 기록 추가
 				showResult(judgeBallAndStrike(number))
-				nowCount++
+				historyView.text = history //시도 기록 출력
 				if (nowCount == MAX_COUNT){ //최대 횟수 초과
-					resultView.text = "최대 횟수(9번) 초과! 게임 종료"
 					Toast.makeText(this, "정답은 ${answer[0]}${answer[1]}${answer[2]}", Toast.LENGTH_SHORT).show()
 					gameRestart()
+					resultView.text = "최대 횟수(9번) 초과! 게임 종료"
 				}
 			}
 		}
@@ -102,7 +108,10 @@ class MainActivity : AppCompatActivity() {
 	fun showResult(result:MutableList<Int>){
 		var ball = result[0]
 		var strike = result[1]
-		if (ball + strike == 0) resultView.text = "아웃"
+		nowCount++ //현재 시도 횟수 증가
+		if (ball + strike == 0) {
+			resultView.text = "아웃"
+		}
 		else if (ball == 0){
 			resultView.text = "${strike} 스트라이크"
 			if (strike == 3) {
@@ -113,6 +122,7 @@ class MainActivity : AppCompatActivity() {
 		}
 		else if (strike == 0) resultView.text = "${ball} 볼"
 		else resultView.text = "${ball} 볼 ${strike} 스트라이크"
+		history += "${resultView.text}\n" //시도 기록 추가
 	}
 	// 게임 재시작
 	fun gameRestart(){
@@ -121,6 +131,9 @@ class MainActivity : AppCompatActivity() {
 		minCountView.text = "${minCount}"
 		nowCount = 0
 		input.setText("") //입력창 초기화
+		history = "" //시도 기록 초기화
+		historyView.text = "" //시도 기록 텍스트뷰 초기화
+		resultView.text = "" //결과 텍스트뷰 초기화
 	}
 
 }
