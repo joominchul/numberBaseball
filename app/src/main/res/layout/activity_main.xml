@@ -85,10 +85,12 @@
             android:id="@+id/history"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
+            android:background = "@drawable/ground"
+            android:alpha="0.5"
             android:text="게임 기록 내용"
             android:textSize="30dp"
-            android:gravity="center"/>
+            android:textColor="@color/black"
+            android:gravity="center|top"/>
     </ScrollView>
 
 
