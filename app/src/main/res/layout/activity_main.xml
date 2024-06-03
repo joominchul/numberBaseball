@@ -71,11 +71,27 @@
             android:gravity="center"
             android:layout_weight="1"/>
     </LinearLayout>
-    <ImageView
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/ground"
-        android:scaleType="centerCrop"/>
+        android:layout_height="70dp"
+        android:text="게임 기록"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:background="@color/Ivory"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/history"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:text="게임 기록 내용"
+            android:textSize="30dp"
+            android:gravity="center"/>
+    </ScrollView>
+
+
 
 
 </LinearLayout>
